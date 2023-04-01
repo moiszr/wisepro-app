@@ -1,0 +1,76 @@
+<ion-content>
+  <div id="header">
+    <div id="app-bar">
+      <ion-icon name="arrow-back" [routerLink]="['/welcome']"></ion-icon>
+      <div></div>
+    </div>
+    <h1>Sign Up</h1>
+  </div>
+
+  <div class="wrapper">
+    <ion-card class="form-wrapper">
+      <ion-card-content>
+        <form (ngSubmit)="signUp(userEmail, userPassword, userDisplayName, userPhotoURL)" #registrationForm="ngForm">
+          <ion-item>
+            <ion-icon name="person-circle"></ion-icon>
+            <ion-input
+              type="text"
+              [(ngModel)]="userDisplayName"
+              name="displayName"
+              required
+              placeholder="Display Name"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="mail"></ion-icon>
+            <ion-input
+              type="email"
+              [(ngModel)]="userEmail"
+              name="email"
+              required
+              placeholder="Email"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="lock-closed"></ion-icon>
+            <ion-input
+              type="password"
+              [(ngModel)]="userPassword"
+              name="password"
+              required
+              placeholder="Password"
+            ></ion-input>
+          </ion-item>
+          <ion-button
+            type="submit"
+            [disabled]="!registrationForm.valid"
+            expand="block"
+          >
+            Sign up
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="line-text">
+      <span class="lines"></span>
+      <span class="text"> Or </span>
+    </div>
+
+    <ion-card class="social-wrapper">
+      <ion-card-content>
+        <div class="socials">
+          <ion-button class="btn-fb" (click)="authService.FacebookAuth()">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-go" (click)="authService.GoogleAuth()">
+            <ion-icon name="logo-google"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-gh" (click)="authService.GithubAuth()">
+            <ion-icon name="logo-github"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

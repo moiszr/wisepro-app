@@ -1,3 +1,62 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane contentId="main-content">
+    <ion-menu [type]="menuType" contentId="main-content">
+      <ion-content >
+        
+        <ion-grid>
+          <ion-row class="header-row">
+            <ion-col class="logo-title-col">
+              <ion-row>
+                <ion-col size="3" class="logo-col">
+                  <ion-img src="assets/img/logo.png" alt="Logo" class="logo"></ion-img>
+                </ion-col>
+                <ion-col size="9" class="title-col">
+                  <ion-list id="inbox-list" class="header-content">
+                    <ion-list-header>Camilo Luna</ion-list-header>
+                    <ion-note>Tu sabio compañero</ion-note>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="divider"></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+            <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-outline'" class="icon"></ion-icon>
+            <ion-label>{{ p.title }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-row>
+          <ion-col>
+            <div class="divider"></div>
+          </ion-col>
+        </ion-row>
+
+        <ion-menu-toggle auto-hide="false">
+          <ion-item routerDirection="root" [routerLink]="['/config']" lines="none" detail="false" routerLinkActive="selected">
+            <ion-icon aria-hidden="true" slot="start" [ios]="'settings-outline'" [md]="'settings-outline'" class="icon"></ion-icon>
+            <ion-label>Config</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-grid class="footer">
+          <ion-row>
+            <ion-col class="footer-content">
+              <p>&copy; 2023 WisePro.</p>
+              <p>Versión 0.0.1</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>

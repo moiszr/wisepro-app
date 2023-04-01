@@ -1,0 +1,139 @@
+:root {
+  --primary-color: #3a416f;
+  --secondary-color: #73849a;
+  --light-color: #eee;
+  --selected-gradient-start: #fbcf33;
+  --selected-gradient-end: #f7d437;
+}
+
+ion-menu::part(backdrop) {
+  background-color: rgba(77, 66, 77, 0.5);
+}
+
+ion-menu::part(container) {
+  border-radius: 0 20px 20px 0;
+  box-shadow: 4px 0px 16px rgba(65, 46, 65, 0.18);
+}
+
+ion-menu ion-label {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+ion-menu ion-content {
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
+
+ion-menu ion-content {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-bottom: 20px;
+}
+
+ion-menu ion-list {
+  padding: 20px 0;
+}
+
+ion-menu ion-list-header,
+ion-menu ion-note {
+  padding-left: 10px;
+}
+
+ion-menu ion-list#inbox-list {
+  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+}
+
+ion-menu ion-list#inbox-list ion-list-header {
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 20px;
+}
+
+ion-menu ion-list#labels-list ion-list-header {
+  font-size: 16px;
+  margin-bottom: 18px;
+  color: #3a416f;
+  min-height: 26px;
+}
+
+ion-menu ion-item {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 4px;
+}
+
+ion-note {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--ion-color-medium-shade);
+}
+
+ion-item.selected {
+  --color: #3a416f;
+}
+
+ion-menu-toggle ion-icon {
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 8px;
+  margin-right: 18px;
+  box-shadow: 0px 8px 15px -5px rgba(0, 0, 0, 0.2);
+}
+
+ion-item.selected ion-icon {
+  box-shadow: 0px 8px 15px -5px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(360deg, #fbcf33 10%, #f7d437 100%);
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.logo-title-col {
+  display: flex;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.logo-col {
+  display: flex;
+  align-items: center;
+}
+
+.title-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer p {
+  font-size: 12px;
+  color: var(--ion-color-medium-shade);
+  margin: 0;
+  text-align: center;
+}

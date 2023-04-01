@@ -1,0 +1,30 @@
+<ion-content>
+  <div id="header">
+    <div id="app-bar">
+      <ion-icon name="arrow-back" [routerLink]="['/welcome']"></ion-icon>
+      <div></div>
+    </div>
+    <h1>Email Verification</h1>
+  </div>
+
+  <div class="wrapper">
+    <ion-card class="form-wrapper">
+      <ion-card-content>
+        <p>
+          Please check your email and click on the link to verfiy your email
+          address.
+        </p>
+        <form (ngSubmit)="authService.SendVerificationMail()" #VerifyEmailForm="ngForm">
+          <ion-button
+            type="submit"
+            [disabled]="!VerifyEmailForm.valid"
+            expand="block"
+          >
+            Resend Verification Email
+          </ion-button>
+          <ion-button expand="block" fill="outline" class="ion-margin-bottom" [routerLink]="['/login']">Sign In</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

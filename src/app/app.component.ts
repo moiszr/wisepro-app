@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+
+  public appPages = [
+    { title: 'Dashboard', url: '/home', icon: 'mail' },
+    { title: 'Task', url: '/tasks', icon: 'grid' },
+    { title: 'Time', url: '/time', icon: 'stopwatch' },
+    { title: 'Notes', url: '/notes', icon: 'documents' },
+    { title: 'Finance', url: '/finance', icon: 'cash' },
+  ];
+
+  menuType: string = 'overlay';
+
+  constructor(
+    private navCtrl: NavController
+  ) {}
 }
