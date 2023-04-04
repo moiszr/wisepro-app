@@ -19,14 +19,20 @@ export class LoginPage implements OnInit {
     this.authService
       .SignIn(email, password)
       .then((res) => {
-        if (this.authService && this.authService.isEmailVerified) {
+        if (res) {
           this.router.navigate(['home']);
-        } else {
-          window.alert('Please check the email or password and try again.');
         }
       })
       .catch((error) => {
-        window.alert(error.message);
+        if (error instanceof Error) {
+          if (error.message === 'email-not-verified') {
+            window.alert('Please verify your email address before signing in.');
+          } else {
+            window.alert('Please check the email or password and try again.');
+          }
+        } else {
+          window.alert('An unexpected error occurred. Please try again.');
+        }
       });
   }
 }

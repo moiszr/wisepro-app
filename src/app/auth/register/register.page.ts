@@ -23,28 +23,19 @@ export class RegisterPage implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   signUp(
     email: string,
     password: string,
     displayName: string,
-    photoURL: string,
+    photoURL: string
   ) {
     this.authService
-      .RegisterUser(email, password)
+      .SignUp(email, password)
       .then((res) => {
         if (res && res.user) {
-          // Set user data and send verification email
-          this.authService.SetUserData({
-            uid: res.user.uid,
-            email: res.user.email,
-            displayName: displayName,
-            photoURL: photoURL = '',
-            emailVerified: res.user.emailVerified,
-          });
-          this.authService.SendVerificationMail();
+          this.authService.SetUserData(res.user, displayName, photoURL || '');
           this.router.navigate(['verify-email']);
         }
       })

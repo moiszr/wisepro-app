@@ -40,20 +40,31 @@ export class AuthService {
   // Iniciar sesión con correo electrónico y contraseña
   async SignIn(email: string, password: string) {
     try {
-      return await signInWithEmailAndPassword(this.auth, email, password);
-    } catch (e) {
-      return null;
+      const userCredential = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+
+      if (!userCredential.user.emailVerified) {
+        throw new Error('email-not-verified');
+      }
+
+      return userCredential;
+    } catch (error) {
+      throw error;
     }
   }
 
   // Registrar usuario con correo electrónico y contraseña
-  async RegisterUser(email: string, password: string) {
+  async SignUp(email: string, password: string) {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         this.auth,
         email,
         password
       );
+      this.SendVerificationMail(userCredential.user);
       this.SetUserData(userCredential.user);
       return userCredential;
     } catch (e) {
@@ -62,15 +73,16 @@ export class AuthService {
   }
 
   // Enviar correo electrónico de verificación al registrar un nuevo usuario
-  async SendVerificationMail() {
-    const user = this.auth.currentUser;
-    if (user) {
-      try {
+  async SendVerificationMail(user: FirebaseUser | null) {
+    try {
+      if (user) {
         await sendEmailVerification(user);
-        await this.SignOut();
-      } catch (error) {
-        console.error('Error sending email verification:', error);
+        console.log('Verification email sent');
+      } else {
+        console.warn('There is no currently authenticated user');
       }
+    } catch (error) {
+      console.error('Error sending verification email:', error);
     }
   }
 
@@ -88,22 +100,8 @@ export class AuthService {
 
   // Devuelve verdadero si el usuario está conectado y su correo electrónico está verificado
   get isLoggedIn(): boolean {
-    const userStr = localStorage.getItem('user');
-    if (!userStr) {
-      return false;
-    }
-    const user = JSON.parse(userStr);
-    return user !== null && user.emailVerified !== false ? true : false;
-  }
-
-  // Devuelve verdadero si el correo electrónico del usuario está verificado
-  get isEmailVerified(): boolean {
-    const userStr = localStorage.getItem('user');
-    if (!userStr) {
-      return false;
-    }
-    const user = JSON.parse(userStr);
-    return user.emailVerified !== false ? true : false;
+    const user = this.auth.currentUser;
+    return user !== null && user.emailVerified;
   }
 
   // Iniciar sesión con cuenta de Google
@@ -152,18 +150,21 @@ export class AuthService {
   }
 
   // Almacenar datos del usuario en Firestore
-  SetUserData(user: any) {
-    const userRef = doc(getFirestore(), `users/${user.uid}`);
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-    };
-    return setDoc(userRef, userData, {
-      merge: true,
-    });
+  async SetUserData(user: any, displayName?: string, photoURL?: string) {
+    try {
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: displayName || user.displayName,
+        photoURL: photoURL || user.photoURL,
+        emailVerified: user.emailVerified,
+      };
+
+      await setDoc(doc(this.firestore, 'users', user.uid), userData);
+      console.log('User data stored in Firestore');
+    } catch (error) {
+      console.error('Error storing user data:', error);
+    }
   }
 
   // Cerrar sesión del usuario y eliminar datos del almacenamiento local

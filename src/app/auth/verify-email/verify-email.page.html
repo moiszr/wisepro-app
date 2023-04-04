@@ -14,7 +14,7 @@
           Please check your email and click on the link to verfiy your email
           address.
         </p>
-        <form (ngSubmit)="authService.SendVerificationMail()" #VerifyEmailForm="ngForm">
+        <form (ngSubmit)="authService.SendVerificationMail(authService.userData)" #VerifyEmailForm="ngForm">
           <ion-button
             type="submit"
             [disabled]="!VerifyEmailForm.valid"
