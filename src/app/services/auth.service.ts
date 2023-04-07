@@ -14,7 +14,7 @@ import {
   FacebookAuthProvider,
   GithubAuthProvider,
 } from '@angular/fire/auth';
-import { getFirestore, doc, setDoc } from '@angular/fire/firestore';
+import { getFirestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -164,6 +164,22 @@ export class AuthService {
       console.log('User data stored in Firestore');
     } catch (error) {
       console.error('Error storing user data:', error);
+    }
+  }
+  
+  // Obtiene la información del usuario actualmente autenticado.
+  async getUserData(uid: string): Promise<User | null> {
+    try {
+      const docRef = doc(this.firestore, 'users', uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        return docSnap.data() as User;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      throw error;
     }
   }
 
