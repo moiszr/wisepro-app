@@ -1,13 +1,87 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="cover">
+    <div class="menu-button">
+      <ion-menu-toggle>
+        <ion-icon name="menu-outline"></ion-icon>
+      </ion-menu-toggle>
+    </div>
+    <div class="profile-image">
+      <app-initials-avatar [fullName]="user?.displayName || 'W P'" [routerLink]="'/config'"></app-initials-avatar>
+    </div>    
+    <div class="welcome-message">
+      <h2>Hola, {{ (user?.displayName?.split(' ') || [])[0] }}</h2>
+    </div>    
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="home-container">
+    <!-- Plan financiero -->
+    <div class="section-header">
+      <h3>Plan financiero</h3>
+      <a href="#">Ver detalles</a>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <ion-icon name="wallet-outline" class="card-icon"></ion-icon>
+        <h4>Total Detalle</h4>
+        <h6>{{ selectedDate | date: 'LLLL' }}</h6>
+      </div>
+      <div class="card-info">
+        <div class="chart-container"></div>
+        <div class="totals-container">
+          <div class="total-expenses">
+            <h6>Gastos</h6>
+            <p><span class="currency">RD$ </span><b>10,000.00</b></p>
+          </div>
+          <div class="total-income">
+            <h6>Ingresos</h6>
+            <p><span class="currency">RD$ </span><b>15,000.00</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gestión de tareas -->
+    <div class="section-header">
+      <h3>Gestión de tareas</h3>
+      <a href="#">Ver todas</a>
+    </div>
+    <div class="task-buttons">
+      <div class="task-button-wrapper">
+        <button class="task-button">
+          <ion-icon name="list-outline"></ion-icon>
+        </button>
+        <p>Lista</p>
+      </div>
+      <div class="task-button-wrapper">
+        <button class="task-button">
+          <ion-icon name="add-outline"></ion-icon>
+        </button>
+        <p>Agregar</p>
+      </div>
+      <div class="task-button-wrapper">
+        <button class="task-button">
+          <ion-icon name="checkbox-outline"></ion-icon>
+        </button>
+        <p>Compl.</p>
+      </div>
+    </div>
+    <!-- ... -->
+
+    <!-- Gestión de tiempo -->
+    <div class="section-header">
+      <h3>Gestión de tiempo</h3>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <ion-icon name="timer-outline" class="card-icon"></ion-icon>
+        <h4>Actividades</h4>
+        <h6>{{ selectedDate | date: 'LLLL' }}</h6>
+      </div>
+      <div *ngFor="let event of upcomingEvents" class="event-item">
+        <span class="event-date">{{ event.dueDate | date: 'shortDate' }}</span>
+        <span class="event-title">{{ event.title }}</span>
+        <button class="button-time">Ver</button>
+      </div>
+    </div>
+  </div>
 </ion-content>

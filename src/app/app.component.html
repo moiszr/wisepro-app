@@ -12,7 +12,7 @@
                 </ion-col>
                 <ion-col size="9" class="title-col">
                   <ion-list id="inbox-list" class="header-content">
-                    <ion-list-header>Camilo Luna</ion-list-header>
+                    <ion-list-header>WisePro</ion-list-header>
                     <ion-note>Tu sabio compañero</ion-note>
                   </ion-list>
                 </ion-col>
@@ -30,19 +30,6 @@
           <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
             <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-outline'" class="icon"></ion-icon>
             <ion-label>{{ p.title }}</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-
-        <ion-row>
-          <ion-col>
-            <div class="divider"></div>
-          </ion-col>
-        </ion-row>
-
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerDirection="root" [routerLink]="['/config']" lines="none" detail="false" routerLinkActive="selected">
-            <ion-icon aria-hidden="true" slot="start" [ios]="'settings-outline'" [md]="'settings-outline'" class="icon"></ion-icon>
-            <ion-label>Config</ion-label>
           </ion-item>
         </ion-menu-toggle>
 
