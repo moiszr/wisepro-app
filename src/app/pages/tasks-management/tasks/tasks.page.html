@@ -1,13 +1,79 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>tasks</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="cover">
+    <div class="menu-button">
+      <ion-menu-toggle>
+        <ion-icon name="menu-outline"></ion-icon>
+      </ion-menu-toggle>
+    </div>
+    <div class="welcome-message">
+      <h2>Gestion de Tareas</h2>
+    </div>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tasks</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Contenido tabla -->
+  <div class="task-controls">
+    <div class="filter-select">
+      <ion-select aria-label="status" placeholder="Seleccionar Estado" [(ngModel)]="selectedStatus" (ngModelChange)="filterTasks(selectedStatus)">
+        <ion-select-option value="">Todos</ion-select-option>
+        <ion-select-option value="pendiente">Pendiente</ion-select-option>
+        <ion-select-option value="en progreso">En Progreso</ion-select-option>
+        <ion-select-option value="completado">Completado</ion-select-option>
+      </ion-select>
+    </div>
+    <div class="search-button" (click)="toggleSearch()">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
+    <div class="search-input" [class.visible]="searchVisible">
+      <ion-input show-clear-button="always" placeholder="Buscar tareas" [(ngModel)]="searchTerm" (ngModelChange)="searchTasks(searchTerm)"></ion-input>
+    </div>
+    <div class="add-button" [routerLink]="['/add-tasks']">
+      <h1>NEW</h1>
+    </div>
+  </div>
+  
+  <div class="scrollable-container">
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th (click)="sortTable('title')"><ion-icon name="text-outline"></ion-icon> Título</th>
+          <th (click)="sortTable('expiration_date')"><ion-icon name="calendar-clear-outline"></ion-icon> Expiración</th>
+          <th (click)="sortTable('status')"><ion-icon name="analytics-outline"></ion-icon> Estatus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of filteredTasks" (click)="openTask(task)">
+          <td class="title-row" (click)="openTask(task)">{{ task.title ?? 'Untitled'}} <span class="button-title">VER</span></td>
+          <td>{{ task.expiration_date | date: 'dd MMMM' }}</td>
+          <td class="status-row">
+            <span [ngClass]="task.status ? getStatusClass(task.status) : ''">{{ task.status }}</span>
+          </td>          
+        </tr>
+        <tr class="add-row" [routerLink]="['/add-tasks']">
+          <td colspan="3"><ion-icon name="add-outline"></ion-icon> Agregar una nueva tarea</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
+
 </ion-content>
+
+<div class="custom-tab-bar">
+  <div
+    class="tab-button active"
+    data-view="table-view"
+    (click)="navigateTo('/tasks')"
+    routerLinkActive="selected"
+  >
+    <ion-icon name="grid-outline"></ion-icon>
+    <span>Tabla</span>
+  </div>
+  <div
+    class="tab-button"
+    data-view="card-view"
+    (click)="navigateTo('/tasks-card')"
+    routerLinkActive="selected"
+  >
+    <ion-icon name="albums-outline"></ion-icon>
+    <span>Card</span>
+  </div>
+</div>

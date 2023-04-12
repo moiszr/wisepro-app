@@ -62,14 +62,38 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToWelcome },
   },
   {
+    path: 'expenses',
+    loadChildren: () => import('./pages/finance-management/expenses/expenses.module').then( m => m.ExpensesPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'income',
+    loadChildren: () => import('./pages/finance-management/income/income.module').then( m => m.IncomePageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
     path: 'tasks',
     loadChildren: () => import('./pages/tasks-management/tasks/tasks.module').then( m => m.TasksPageModule),
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToWelcome },
   },
   {
-    path: 'time',
-    loadChildren: () => import('./pages/time-management/time/time.module').then( m => m.TimePageModule),
+    path: 'tasks-card',
+    loadChildren: () => import('./pages/tasks-management/tasks-card/tasks-card.module').then( m => m.TasksCardPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'add-tasks',
+    loadChildren: () => import('./pages/tasks-management/add-tasks/add-tasks.module').then( m => m.AddTasksPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'update-tasks/:taskId',
+    loadChildren: () => import('./pages/tasks-management/update-tasks/update-tasks.module').then( m => m.UpdateTasksPageModule),
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToWelcome },
   },
@@ -78,6 +102,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/config/config.module').then( m => m.ConfigPageModule),
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'actions-modal',
+    loadChildren: () => import('./component/actions-modal/actions-modal.module').then( m => m.ActionsModalPageModule)
   },
 ];
 

@@ -1,0 +1,58 @@
+<ion-content>
+  <div class="cover">
+    <div class="menu-button">
+      <ion-menu-toggle>
+        <ion-icon name="menu-outline"></ion-icon>
+      </ion-menu-toggle>
+    </div>
+    <div class="welcome-message">
+      <h2>Gestion de Tareas</h2>
+    </div>
+  </div>
+
+  <!-- Contenido board -->
+  <div class="task-controls">
+    <div class="search-button" (click)="toggleSearch()">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
+    <div class="search-input" [class.visible]="searchVisible">
+      <ion-input show-clear-button="always" placeholder="Buscar tareas" [(ngModel)]="searchTerm" (ngModelChange)="searchTasks(searchTerm)"></ion-input>
+    </div>
+    <div class="add-button" [routerLink]="['/add-tasks']">
+      <h1>NEW</h1>
+    </div>
+  </div>
+  
+  <div class="scrollable-container">
+    <div class="board-container">
+      <div class="board-column" *ngFor="let status of ['Pendiente', 'En progreso', 'Completada']">
+        <div class="board-column-title">
+          <h3 [ngClass]="status | lowercase">{{ status }}</h3>
+        </div>
+        <div class="board-cards">
+          <div class="board-card" *ngFor="let task of getTasksByStatus(status)" (click)="openTask(task)">
+            <div class="card-content">
+              <h4>{{ task.title ?? 'Sin título' }}</h4>
+              <p class="date">{{ task.expiration_date | date: 'dd MMMM' }}</p>
+              <h5 class="priority">
+                <span [ngClass]="task.priority | lowercase">{{ task.priority }}</span>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>  
+
+</ion-content>
+
+<div class="custom-tab-bar">
+  <div class="tab-button" data-view="table-view" (click)="navigateTo('/tasks')" routerLinkActive="selected">
+    <ion-icon name="grid-outline"></ion-icon>
+    <span>Tabla</span>
+  </div>
+  <div class="tab-button active" data-view="card-view" (click)="navigateTo('/tasks-card')" routerLinkActive="selected">
+    <ion-icon name="albums-outline"></ion-icon>
+    <span>Card</span>
+  </div>
+</div>

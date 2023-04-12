@@ -17,7 +17,7 @@
     <!-- Plan financiero -->
     <div class="section-header">
       <h3>Plan financiero</h3>
-      <a href="#">Ver detalles</a>
+      <a href="/finance">Ver detalles</a>
     </div>
     <div class="card">
       <div class="card-content">
@@ -43,38 +43,31 @@
     <!-- Gestión de tareas -->
     <div class="section-header">
       <h3>Gestión de tareas</h3>
-      <a href="#">Ver todas</a>
+      <a href="/tasks">Ver todas</a>
     </div>
     <div class="task-buttons">
-      <div class="task-button-wrapper">
+      <div class="task-button-wrapper" [routerLink]="['/tasks']">
         <button class="task-button">
           <ion-icon name="list-outline"></ion-icon>
         </button>
         <p>Lista</p>
       </div>
-      <div class="task-button-wrapper">
+      <div class="task-button-wrapper" [routerLink]="['/add-tasks']">
         <button class="task-button">
           <ion-icon name="add-outline"></ion-icon>
         </button>
         <p>Agregar</p>
       </div>
-      <div class="task-button-wrapper">
-        <button class="task-button">
-          <ion-icon name="checkbox-outline"></ion-icon>
-        </button>
-        <p>Compl.</p>
-      </div>
     </div>
-    <!-- ... -->
 
-    <!-- Gestión de tiempo -->
+    <!-- Gestión de notas -->
     <div class="section-header">
-      <h3>Gestión de tiempo</h3>
+      <h3>Gestión de notas</h3>
     </div>
     <div class="card">
       <div class="card-content">
-        <ion-icon name="timer-outline" class="card-icon"></ion-icon>
-        <h4>Actividades</h4>
+        <ion-icon name="document-outline" class="card-icon"></ion-icon>
+        <h4>Notas</h4>
         <h6>{{ selectedDate | date: 'LLLL' }}</h6>
       </div>
       <div *ngFor="let event of upcomingEvents" class="event-item">
