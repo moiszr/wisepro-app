@@ -10,41 +10,7 @@ export class TaskService {
   tasks$: Observable<Tasks[]> = this.tasksSubject.asObservable();
 
   constructor() { 
-    const initialTasks: Tasks[] = [
-      {
-        tasks_id: 1,
-        title: 'Limpieza de la casa',
-        description: 'Limpiar la casa de arriba a abajo',
-        creation_date: new Date(),
-        priority: 'Baja',
-        type: 'Doméstico',
-        expiration_date: new Date(),
-        status: 'Pendiente',
-        user_id: '1'
-      },
-      {
-        tasks_id: 2,
-        title: 'Comprar comestibles',
-        description: 'Ir al supermercado y comprar comestibles para la semana',
-        creation_date: new Date(),
-        priority: 'Media',
-        type: 'Compras',
-        expiration_date: new Date(),
-        status: 'En progreso',
-        user_id: '1'
-      },
-      {
-        tasks_id: 3,
-        title: 'Pagar facturas',
-        description: 'Pagar las facturas de agua, luz y gas',
-        creation_date: new Date(),
-        priority: 'Alta',
-        type: 'Finanzas',
-        expiration_date: new Date(),
-        status: 'Completada',
-        user_id: '1'
-      }
-    ];
+    const initialTasks: Tasks[] = [];
     this.tasksSubject.next(initialTasks);
   }
 

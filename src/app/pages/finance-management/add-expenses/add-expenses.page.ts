@@ -6,37 +6,36 @@ import { formatDate } from '@angular/common';
 
 import { User } from 'src/app/services/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { TaskService } from 'src/app/services/task.service';
+import { FinanceService } from 'src/app/services/finance.service';
 import { UtilitiesService } from 'src/app/services/utilities.service';
 import { ActionsModalPage } from 'src/app/component/actions-modal/actions-modal.page';
 
 @Component({
-  selector: 'app-add-tasks',
-  templateUrl: './add-tasks.page.html',
-  styleUrls: ['./add-tasks.page.scss'],
+  selector: 'app-add-expenses',
+  templateUrl: './add-expenses.page.html',
+  styleUrls: ['./add-expenses.page.scss'],
 })
-export class AddTasksPage implements OnInit {
-  taskForm: FormGroup;
-  taskTitle: string = '';
+export class AddExpensesPage implements OnInit {
+  financeForm: FormGroup;
+  financeTitle: string = '';
   user: User | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private modalController: ModalController,
     private router: Router,
-    private tasksService: TaskService,
+    private financeService: FinanceService,
     private utilities: UtilitiesService,
     private authService: AuthService
   ) {
     this.fetchUserData();
-    this.taskForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      creation_date: [formatDate(new Date(), 'dd MMMM yyyy', 'en')],
-      type: ['', Validators.required],
-      priority: [null, Validators.required],
-      expiration_date: [null, Validators.required],
-      status: ['', Validators.required],
+    this.financeForm = this.formBuilder.group({
+      name: ['', Validators.required],
       description: ['', Validators.required],
+      type: ['Expenses'],
+      amount: ['', Validators.required],
+      date: [null, Validators.required],
+      type_expense: ['', Validators.required],   
       user_id: [this.user?.uid ?? null],
     });
   }
@@ -55,18 +54,32 @@ export class AddTasksPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.utilities.coverImage();
     this.resetForm();
   }
-  
+
+  resetForm() {
+    const currentDate = new Date();
+    this.financeForm.reset({
+      name: '',
+      description: '',
+      type: null,
+      amount: '',
+      date: this.utilities.formatDateForInput(currentDate),
+      type_expense: null,      
+    });
+  }
+
   async goBack() {
-    if (this.taskForm.valid) {
-      const taskData = this.taskForm.value;
-      taskData.user_id = this.user?.uid
-      this.tasksService.addTask(taskData);
-      await this.utilities.presentToast('bottom', 'Tarea Agregada correctamente');
-      this.router.navigate(['/tasks']);
+    if (this.financeForm.valid) {
+      const financeData = this.financeForm.value;
+      financeData.user_id = this.user?.uid;
+      financeData.type = 'Expenses'
+      this.financeService.addFinance(financeData);
+      await this.utilities.presentToast('bottom', 'Gastos Agregados');
+      this.router.navigate(['/expenses']);
     } else if (this.canGoBack()) {
-      this.router.navigate(['/tasks']);
+      this.router.navigate(['/expenses']);
     } else {
       await this.utilities.presentToast('bottom', 'Completa todos los campos');
     }
@@ -75,27 +88,13 @@ export class AddTasksPage implements OnInit {
   canGoBack(): boolean {
     let canGoBack = true;
   
-    Object.keys(this.taskForm.controls).forEach((key) => {
-      const control = this.taskForm.get(key);
+    Object.keys(this.financeForm.controls).forEach((key) => {
+      const control = this.financeForm.get(key);
       if (control!.dirty || control!.touched) {
         canGoBack = false;
       }
     });
-  
     return canGoBack;
-  }
-  
-  resetForm() {
-    const currentDate = new Date();
-    this.taskForm.reset({
-      title: '',
-      creation_date: [formatDate(new Date(), 'dd MMMM yyyy', 'en')],
-      type: '',
-      priority: null,
-      expiration_date: this.utilities.formatDateForInput(currentDate),
-      status: '',
-      description: '',
-    });
   }
 
   async openActionsModal() {
@@ -108,22 +107,22 @@ export class AddTasksPage implements OnInit {
         this.performAction(result.data);
       }
     });
-  
     return await modal.present();
   }
 
   performAction(actionType: string) {
     switch (actionType) {
       case 'delete':
-        console.log('No se ha creado la tarea');
-        this.router.navigate(['/tasks']);
+        console.log('No se ha agregado el gasto');
+        this.router.navigate(['/expenses']);
         break;
       case 'cancel':
-        console.log('Cancelando la creación de la tarea');
-        this.router.navigate(['/tasks']);
+        console.log('Cancelando la creación del gasto');
+        this.router.navigate(['/expenses']);
         break;
       default:
         console.log('Acción desconocida');
     }
   }
+
 }

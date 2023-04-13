@@ -62,6 +62,30 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToWelcome },
   },
   {
+    path: 'add-finance',
+    loadChildren: () => import('./pages/finance-management/add-finance/add-finance.module').then( m => m.AddFinancePageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'update-finance/:financeId',
+    loadChildren: () => import('./pages/finance-management/update-finance/update-finance.module').then( m => m.UpdateFinancePageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'add-finance-detail/:financeId',
+    loadChildren: () => import('./pages/finance-management/update-finance/add-finance-detail/add-finance-detail.module').then( m => m.AddFinanceDetailPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'update-finance-detail/:financeDetail_id',
+    loadChildren: () => import('./pages/finance-management/update-finance/update-finance-detail/update-finance-detail.module').then( m => m.UpdateFinanceDetailPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
     path: 'expenses',
     loadChildren: () => import('./pages/finance-management/expenses/expenses.module').then( m => m.ExpensesPageModule),
     canActivate: [AuthGuard],
@@ -106,6 +130,30 @@ const routes: Routes = [
   {
     path: 'actions-modal',
     loadChildren: () => import('./component/actions-modal/actions-modal.module').then( m => m.ActionsModalPageModule)
+  },
+  {
+    path: 'update-expenses/:financeId',
+    loadChildren: () => import('./pages/finance-management/update-expenses/update-expenses.module').then( m => m.UpdateExpensesPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'add-expenses',
+    loadChildren: () => import('./pages/finance-management/add-expenses/add-expenses.module').then( m => m.AddExpensesPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'add-income',
+    loadChildren: () => import('./pages/finance-management/add-income/add-income.module').then( m => m.AddIncomePageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'update-income/:financeId',
+    loadChildren: () => import('./pages/finance-management/update-income/update-income.module').then( m => m.UpdateIncomePageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
   },
 ];
 

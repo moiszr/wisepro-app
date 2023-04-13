@@ -7,8 +7,45 @@
     </div>
     <div class="welcome-message">
       <h2>Gestion de Ahorros</h2>
-    </div>    
+    </div>
   </div>
+
+  <!-- Contenido tabla -->
+  <div class="button-controls">
+    <div class="search-button" (click)="toggleSearch()">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
+    <div class="search-input" [class.visible]="searchVisible">
+      <ion-input show-clear-button="always" placeholder="Buscar ahorros" [(ngModel)]="searchTerm" (ngModelChange)="searchFinance(searchTerm)"></ion-input>
+    </div>
+    <div class="add-button" [routerLink]="['/add-finance']">
+      <h1>NEW</h1>
+    </div>
+  </div>
+  
+  <div class="scrollable-container">
+    <table class="details-table">
+      <thead>
+        <tr>
+          <th (click)="sortTable('name')"><ion-icon name="text-outline"></ion-icon> Título</th>
+          <th (click)="sortTable('type')"><ion-icon name="ellipsis-vertical-outline"></ion-icon> Tipo</th>
+          <th (click)="sortTable('amount')"><ion-icon name="cash-outline"></ion-icon> Monto</th>
+          <th (click)="sortTable('end_date')"><ion-icon name="calendar-clear-outline"></ion-icon> Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let finance of filteredFinance" (click)="openFinance(finance)">
+          <td class="title-row" (click)="openFinance(finance)">{{ finance.name ?? 'Untitled'}} <span class="button-title">VER</span></td>
+          <td>{{ finance.type ?? 'Untype' }}</td>
+          <td>{{ finance.amount }}</td>   
+          <td>{{ finance.end_date | date: 'dd MMMM' }}</td>        
+        </tr>
+        <tr class="add-row" [routerLink]="['/add-finance']">
+          <td colspan="3"><ion-icon name="add-outline"></ion-icon> Agregar una nueva meta de ahorros</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
 </ion-content>
 
 <div class="custom-tab-bar">
