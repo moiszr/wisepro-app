@@ -7,6 +7,39 @@
     </div>
     <div class="welcome-message">
       <h2>Gestion de Notas</h2>
-    </div>    
+    </div>
   </div>
+
+  <!-- Contenido tabla -->
+  <div class="button-controls">
+    <div class="search-button" (click)="toggleSearch()">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
+    <div class="search-input" [class.visible]="searchVisible">
+      <ion-input show-clear-button="always" placeholder="Buscar ingresos" [(ngModel)]="searchTerm" (ngModelChange)="searchNote(searchTerm)"></ion-input>
+    </div>
+    <div class="add-button" [routerLink]="['/add-notes']">
+      <h1>NEW</h1>
+    </div>
+  </div>
+  
+  <div class="scrollable-container">
+    <table class="details-table">
+      <thead>
+        <tr>
+          <th (click)="sortTable('title')"><ion-icon name="text-outline"></ion-icon> Título</th>
+          <th (click)="sortTable('description')"><ion-icon name="text-outline"></ion-icon> Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of filteredNote" (click)="openNote(note)">
+          <td class="title-row" (click)="openNote(note)">{{ note.title ?? 'Untitled'}} <span class="button-title">VER</span></td>
+          <td>{{ note.description }}</td>
+        </tr>
+        <tr class="add-row" [routerLink]="['/add-notes']">
+          <td colspan="2"><ion-icon name="add-outline"></ion-icon> Agregar una nueva nota</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
 </ion-content>
