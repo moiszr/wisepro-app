@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Chart, registerables } from 'chart.js';
-import { User } from '../services/user';
+import { User } from 'src/app/services/user';
 import { Subscription } from 'rxjs';
 
 Chart.register(...registerables);

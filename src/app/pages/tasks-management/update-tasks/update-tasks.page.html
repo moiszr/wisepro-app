@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="goBack()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="task-title">{{ taskTitle || 'Untitled' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="actions-button" (click)="openActionsModal()">
+        <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="cover-photo"></div>
+  <form [formGroup]="taskForm">
+    <ion-item lines="none">
+      <ion-textarea class="task-title-input" formControlName="title" placeholder="Untitled" [(ngModel)]="taskTitle" autoGrow="true"></ion-textarea>
+    </ion-item>
+  
+    <ion-list>
+      <ion-item lines="none" class="task-item">
+        <ion-icon name="calendar-clear-outline" slot="start" class="task-icon"></ion-icon>
+        <ion-label class="task-label">Creación</ion-label>
+        <ion-input class="task-input task-input-readonly" type="text" formControlName="creation_date" readonly></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="task-item">
+        <ion-icon name="list-outline" slot="start" class="task-icon"></ion-icon>
+        <ion-label class="task-label">Tipo</ion-label>
+        <ion-select class="task-input" formControlName="type" placeholder="Empty">
+          <ion-select-option value="Cuidado Personal">Cuidado Personal</ion-select-option>
+          <ion-select-option value="Estudios universidad">Estudios universidad</ion-select-option>
+          <ion-select-option value="Crecimiento personal">Crecimiento personal</ion-select-option>
+          <ion-select-option value="Salud y bienestar">Salud y bienestar</ion-select-option>
+          <ion-select-option value="Finanzas personales">Finanzas personales</ion-select-option>
+          <ion-select-option value="Hobbies y pasatiempos">Hobbies y pasatiempos</ion-select-option>
+          <ion-select-option value="Desarrollo profesional">Desarrollo profesional</ion-select-option>
+          <ion-select-option value="Mascotas">Mascotas</ion-select-option>
+          <ion-select-option value="Hogar">Hogar</ion-select-option>
+          <ion-select-option value="Compromiso social">Compromiso social</ion-select-option>
+          <ion-select-option value="Eventos o reuniones">Eventos o reuniones</ion-select-option>
+          <ion-select-option value="Viajes y aventuras">Viajes y aventuras</ion-select-option>
+          <ion-select-option value="Crecimiento personal">Crecimiento personal</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item lines="none" class="task-item">
+        <ion-icon name="checkbox-outline" slot="start" class="task-icon"></ion-icon>
+        <ion-label class="task-label">Prioridad</ion-label>
+        <ion-select class="task-input" formControlName="priority" placeholder="Empty">
+          <ion-select-option value="Baja">Baja</ion-select-option>
+          <ion-select-option value="Media">Media</ion-select-option>
+          <ion-select-option value="Alta">Alta</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item lines="none" class="task-item">
+        <ion-icon name="calendar-number-outline" slot="start" class="task-icon"></ion-icon>
+        <ion-label class="task-label">Expiración</ion-label>
+        <ion-input class="task-input" type="date" formControlName="expiration_date" placeholder="Empty"></ion-input>
+      </ion-item>
+  
+      <ion-item lines="none" class="task-item">
+        <ion-icon name="checkmark-done-outline" slot="start" class="task-icon"></ion-icon>
+        <ion-label class="task-label">Estatus</ion-label>
+        <ion-select class="task-input" formControlName="status" placeholder="Empty">
+          <ion-select-option value="Pendiente">Pendiente</ion-select-option>
+          <ion-select-option value="En progreso">En progreso</ion-select-option>
+          <ion-select-option value="Completada">Completada</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item lines="none" class="task-item">
+        <ion-icon name="document-text-outline" slot="start" class="task-icon textarea"></ion-icon>
+        <ion-label class="task-label">Descripción</ion-label>
+        <ion-textarea type="text" class="task-input" formControlName="description" placeholder="Empty"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

@@ -1,0 +1,33 @@
+// Estilos de la toolbar
+.custom-toolbar {
+  --background: #ffffff;
+  --color: #4d4d4d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 400;
+
+  ion-icon {
+    font-size: 1.2rem;
+  }
+}
+
+.task-item {
+  margin: 0 4px 0 0;
+  display: flex;
+  align-items: center;
+  color: #a5a4a1;
+}
+
+.task-icon {
+  flex: 0 0 auto;
+  width: 30px;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.task-label {
+  flex: 0 0 auto;
+  width: 90px;
+  padding-left: 10px;
+  font-size: 0.9rem;
+  font-weight: normal;
+}

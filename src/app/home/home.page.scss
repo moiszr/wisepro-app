@@ -5,7 +5,7 @@ ion-content {
     position: relative;
     height: 135px;
     width: 100%;
-    background-image: url("/assets/img/pages-images/HomeScreen.jpg");
+    background-image: url("/assets/img/pexels-images/pexels_7.jpg");
     background-size: cover;
     background-position: right;
     border-radius: 0px;
@@ -18,17 +18,19 @@ ion-content {
   }
 
   .menu-button {
+    cursor: pointer;
     position: absolute;
     top: 38px;
     left: 15px;
 
     ion-icon {
       font-size: 28px;
-      color: #1f5178;
+      color: #ffffff;
     }
   }
 
   .profile-image {
+    cursor: pointer;
     position: absolute;
     top: 35px;
     right: 15px;
@@ -43,10 +45,10 @@ ion-content {
     text-align: left;
 
     h2 {
-      color: #1f5178;
+      color: #ffffff;
       padding-top: 35px;
-      font-size: 17px;
-      font-weight: 600;
+      font-size: 20px;
+      font-weight: 500;
     }
   }
 
@@ -191,7 +193,7 @@ ion-content {
   .task-button {
     width: 43px;
     height: 43px;
-    background-color: #cce5ff;
+    background-color: #1f5178;
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -201,14 +203,14 @@ ion-content {
 
   .task-button ion-icon {
     font-size: 18px;
-    color: #1f5178;
+    color: #ffffff;
   }
 
   .task-button-wrapper p {
     font-family: "Nunito", sans-serif;
     font-size: 12px;
     font-weight: 500;
-    color: #1f5178;
+    color: #ffffff;
     margin: 0;
     text-align: center;
     margin-top: 4px;
@@ -242,14 +244,14 @@ ion-content {
   .button-time {
     width: 60px;
     height: 30px;
-    background-color: #cce5ff;
-    border-radius: 15px;
+    background-color: #1f5178;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
     margin-left: auto;
     font-size: 12px;
-    color: #1f5178;
+    color: #ffffff;
   }
 }
