@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="goBack()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="finance-title">{{ noteTitle || 'Untitled' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="actions-button" (click)="openActionsModal()">
+        <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="cover-photo"></div>
+  <form [formGroup]="noteForm">
+    <ion-item lines="none">
+      <ion-textarea class="finance-title-input" formControlName="title" placeholder="Untitled" [(ngModel)]="noteTitle" autoGrow="true"></ion-textarea>
+    </ion-item>
+    <ion-list>
+      <ion-item lines="none" class="finance-item">
+        <ion-textarea type="text" class="finance-input" formControlName="description" placeholder="Descripción..." autoGrow="true"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+

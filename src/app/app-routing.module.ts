@@ -155,6 +155,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToWelcome },
   },
+  {
+    path: 'add-notes',
+    loadChildren: () => import('./pages/notes-management/add-notes/add-notes.module').then( m => m.AddNotesPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
+  {
+    path: 'update-notes/:noteId',
+    loadChildren: () => import('./pages/notes-management/update-notes/update-notes.module').then( m => m.UpdateNotesPageModule),
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToWelcome },
+  },
 ];
 
 @NgModule({
