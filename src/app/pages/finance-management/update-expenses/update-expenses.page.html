@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="goBack()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="finance-title">{{ financeTitle || 'Untitled' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="actions-button" (click)="openActionsModal()">
+        <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="cover-photo"></div>
+  <form [formGroup]="financeForm">
+    <ion-item lines="none">
+      <ion-textarea class="finance-title-input" formControlName="name" placeholder="Untitled" [(ngModel)]="financeTitle" autoGrow="true"></ion-textarea>
+    </ion-item>
+  
+    <ion-list>
+      <ion-item lines="none" class="finance-item">
+        <ion-icon name="calendar-clear-outline" slot="start" class="finance-icon"></ion-icon>
+        <ion-label class="finance-label">Fecha</ion-label>
+        <ion-input class="finance-input finance-input-readonly" type="date" formControlName="date"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="finance-item">
+        <ion-icon name="cash-outline" slot="start" class="finance-icon"></ion-icon>
+        <ion-label class="finance-label">Monto</ion-label>
+        <ion-input class="finance-input" type="number" formControlName="amount"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="finance-item">
+        <ion-icon name="list-outline" slot="start" class="finance-icon"></ion-icon>
+        <ion-label class="finance-label">Tipo</ion-label>
+        <ion-select class="finance-input" formControlName="type_expense" placeholder="Empty">
+          <ion-select-option value="Salud">Salud</ion-select-option>
+          <ion-select-option value="Necesidades basicas">Necesidades basicas</ion-select-option>
+          <ion-select-option value="Impuestos">Impuestos</ion-select-option>
+          <ion-select-option value="Comida">Comida</ion-select-option>
+          <ion-select-option value="Familia">Familia</ion-select-option>
+          <ion-select-option value="Hogar">Hogar</ion-select-option>
+          <ion-select-option value="Amigos">Amigos</ion-select-option>
+          <ion-select-option value="Transporte">Transporte</ion-select-option>
+          <ion-select-option value="Trabajo">Trabajo</ion-select-option>
+          <ion-select-option value="Criptomonedas">Criptomonedas</ion-select-option>
+          <ion-select-option value="Universidad">Universidad</ion-select-option>
+          <ion-select-option value="Suscripciones">Suscripciones</ion-select-option>
+          <ion-select-option value="Compras virtuales">Compras virtuales</ion-select-option>
+          <ion-select-option value="Otros">Otros</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item lines="none" class="finance-item">
+        <ion-icon name="document-text-outline" slot="start" class="finance-icon textarea"></ion-icon>
+        <ion-label class="finance-label">Descripción</ion-label>
+        <ion-textarea type="text" class="finance-input" formControlName="description" placeholder="Empty"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

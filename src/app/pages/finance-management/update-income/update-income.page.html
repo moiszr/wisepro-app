@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-button class="back-button" (click)="goBack()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="finance-title">{{ financeTitle || 'Untitled' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="actions-button" (click)="openActionsModal()">
+        <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="cover-photo"></div>
+  <form [formGroup]="financeForm">
+    <ion-item lines="none">
+      <ion-textarea class="finance-title-input" formControlName="name" placeholder="Untitled" [(ngModel)]="financeTitle" autoGrow="true"></ion-textarea>
+    </ion-item>
+  
+    <ion-list>
+      <ion-item lines="none" class="finance-item">
+        <ion-icon name="calendar-clear-outline" slot="start" class="finance-icon"></ion-icon>
+        <ion-label class="finance-label">Fecha</ion-label>
+        <ion-input class="finance-input finance-input-readonly" type="date" formControlName="date"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="finance-item">
+        <ion-icon name="cash-outline" slot="start" class="finance-icon"></ion-icon>
+        <ion-label class="finance-label">Monto</ion-label>
+        <ion-input class="finance-input" type="number" formControlName="amount"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none" class="finance-item">
+        <ion-icon name="document-text-outline" slot="start" class="finance-icon textarea"></ion-icon>
+        <ion-label class="finance-label">Descripción</ion-label>
+        <ion-textarea type="text" class="finance-input" formControlName="description" placeholder="Empty"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

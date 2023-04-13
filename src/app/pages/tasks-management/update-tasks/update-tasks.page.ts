@@ -89,7 +89,7 @@ export class UpdateTasksPage implements OnInit {
     });
   
     return canGoBack;
-  }  
+  }
 
   async goBack() {
     const taskId = parseInt(
@@ -153,7 +153,6 @@ export class UpdateTasksPage implements OnInit {
   
     switch (actionType) {
       case 'delete':
-        // Realiza la acción de borrar
         console.log('Borrar tarea');
         if (this.tasksService.deleteTask(taskId)) {
           console.log('Tarea eliminada correctamente');
@@ -163,7 +162,6 @@ export class UpdateTasksPage implements OnInit {
         }
         break;
       case 'cancel':
-        // Si se presiona cancelar, redirige a la vista de tareas.
         console.log('Cancelando la actualización de la tarea');
         this.router.navigate(['/tasks']);
         break;
