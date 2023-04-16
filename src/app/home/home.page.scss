@@ -254,4 +254,12 @@ ion-content {
     font-size: 12px;
     color: #ffffff;
   }
+
+  .info-message {
+    width: 100%;
+    margin-left: 140px;
+    text-align: center;
+    color: #abadaf; // Cambiar el color del texto aquí, si lo deseas
+    margin-top: 2rem; // Ajusta el padding si es necesario
+  }
 }

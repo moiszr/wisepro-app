@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Chart, registerables } from 'chart.js';
 import { User } from 'src/app/services/user';
+import { FinanceService } from '../services/finance.service';
 import { Subscription } from 'rxjs';
 
 Chart.register(...registerables);
@@ -14,17 +15,17 @@ Chart.register(...registerables);
 export class HomePage implements AfterViewInit {
   selectedDate: Date = new Date();
   user: User | null = null;
+  totalIncomes: number = 0;
+  totalExpenses: number = 0;
+  hasChartData: boolean = false;
 
   constructor(
     private el: ElementRef,
     private renderer: Renderer2,
-    private authService: AuthService
+    private authService: AuthService,
+    private financeService: FinanceService,
   ) {
     this.fetchUserData();
-  }
-
-  ngAfterViewInit() {
-    this.createFinancialChart();
   }
 
   async fetchUserData() {
@@ -32,6 +33,13 @@ export class HomePage implements AfterViewInit {
     if (user && user.uid) {
       this.user = await this.authService.getUserData(user.uid);
     }
+    return Promise.resolve();
+  }
+  
+  ngAfterViewInit() {
+    this.fetchUserData().then(() => {
+      this.createFinancialChart();
+    });
   }
 
   createFinancialChart() {
@@ -40,14 +48,23 @@ export class HomePage implements AfterViewInit {
     const chartContainer =
       this.el.nativeElement.querySelector('.chart-container');
     this.renderer.appendChild(chartContainer, canvas);
+  
+    // Obtén los ingresos y gastos totales del servicio de finanzas
+    const incomes = this.financeService.getIncomes();
+    const expenses = this.financeService.getExpenses();
+    this.totalIncomes = incomes.reduce((total, income) => total + income.amount!, 0);
+    this.totalExpenses = expenses.reduce((total, expense) => total + expense.amount!, 0);
 
+    this.hasChartData = this.totalIncomes > 0 || this.totalExpenses > 0;
+  
     const chart = new Chart(canvas, {
       type: 'doughnut',
       data: {
         labels: ['Gastos', 'Ingresos'],
         datasets: [
           {
-            data: [10000, 15000],
+            // Utiliza los ingresos y gastos totales en lugar de los valores estáticos
+            data: [this.totalExpenses, this.totalIncomes],
             backgroundColor: ['#FF6384', '#36A2EB'],
             borderWidth: 0,
           },
@@ -62,7 +79,7 @@ export class HomePage implements AfterViewInit {
         cutout: '30%',
       },
     });
-  }
+  }  
 
   upcomingEvents = [
     {
